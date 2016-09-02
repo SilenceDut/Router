@@ -1,0 +1,53 @@
+package com.silencedut.router.dispatcher;
+
+import android.os.Looper;
+
+import com.silencedut.router.Annotation.RunThread;
+
+import static com.silencedut.router.Annotation.RunThread.MAIN;
+import static com.silencedut.router.Annotation.RunThread.POSTING;
+
+/**
+ * Created by SilenceDut on 16/9/1.
+ */
+
+public class DispatcherFactory {
+
+    private static final Dispatcher MAIN_THREAD_DISPATCHER = new MainThreadDispatcher();
+    private static final Dispatcher POSTING_THREAD_DISPATCHER = new PostingThreadDispatcher();
+    private static final Dispatcher BACKGROUND_THREAD_DISPATCHER = new BackgroundDispatcher();
+    private volatile static  Dispatcher sAsyncThreadDispatcher ;
+
+
+
+    public static Dispatcher getEventDispatch(RunThread runThread) {
+
+        switch (runThread) {
+            case MAIN:
+                if (Thread.currentThread() == Looper.getMainLooper().getThread()) {
+                    return POSTING_THREAD_DISPATCHER;
+                }
+                return MAIN_THREAD_DISPATCHER;
+            case POSTING:
+                return POSTING_THREAD_DISPATCHER;
+
+            case BACKGROUND:
+                return BACKGROUND_THREAD_DISPATCHER;
+
+            case ASYNC:
+                //lazy init , create Thread Pool only needed.
+                if (sAsyncThreadDispatcher == null) {
+                    synchronized (DispatcherFactory.class) {
+                        if(sAsyncThreadDispatcher==null) {
+                            sAsyncThreadDispatcher = new AsyncThreadDispatcher();
+                        }
+                    }
+                }
+                return sAsyncThreadDispatcher;
+        }
+        return MAIN_THREAD_DISPATCHER;
+    }
+
+
+
+}
