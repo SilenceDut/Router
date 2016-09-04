@@ -1,7 +1,7 @@
 ext {
     userOrg = 'silencedut'
     groupId = 'com.silencedut'
-    description = 'Router —— A better substitute good of Event Bus similar implemented by Dynamic proxy'
+    description = 'Router —— A better substitute good of Event Bus similar  implemented by Dynamic proxy'
     publishVersion = '0.8.0'
     website = 'https://github.com/silencedut/Router'
     dryRun = 'false'
