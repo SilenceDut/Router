@@ -52,6 +52,6 @@ class AnyClass implement AnyInterface {
 Step3. invoke the method you defined before
 
 ```java
-mEventCenter.getReceiver(AnyInterface.class).anyMethod(AnyType object);
+Router.getInstance().getReceiver(AnyInterface.class).anyMethod(AnyType object);
 ```
 

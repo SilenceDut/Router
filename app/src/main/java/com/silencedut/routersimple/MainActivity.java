@@ -14,7 +14,7 @@ public class MainActivity extends AppCompatActivity
         implements Event.TestRunThread
         ,Event.TestMultiReceivers
         ,View.OnClickListener{
-    private Router mEventCenter ;
+
     private static final String TAG = MainActivity.class.getSimpleName();
     private TextView mMainTv;
     private TextView mPostingTv;
@@ -35,8 +35,7 @@ public class MainActivity extends AppCompatActivity
         mTopFragmentTv = (TextView)findViewById(R.id.top_tv);
         mBottomFragmentTv = (TextView)findViewById(R.id.bottom_tv);
 
-        mEventCenter = Router.getInstance();
-        mEventCenter.register(this);
+        Router.getInstance().register(this);
 
         findViewById(R.id.left_bt).setOnClickListener(this);
         findViewById(R.id.right_bt).setOnClickListener(this);
@@ -46,7 +45,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mEventCenter.unregister(this);
+        Router.getInstance().unregister(this);
     }
 
     @Override
@@ -124,10 +123,10 @@ public class MainActivity extends AppCompatActivity
         new Thread(new Runnable() {
             @Override
             public void run() {
-                mEventCenter.getReceiver(Event.TestRunThread.class).textMainThread("main");
-                mEventCenter.getReceiver(Event.TestRunThread.class).textPostThread("post");
-                mEventCenter.getReceiver(Event.TestRunThread.class).textBackgroundThread("background");
-                mEventCenter.getReceiver(Event.TestRunThread.class).textAsyncThread("async");
+                Router.getInstance().getReceiver(Event.TestRunThread.class).textMainThread("main");
+                Router.getInstance().getReceiver(Event.TestRunThread.class).textPostThread("post");
+                Router.getInstance().getReceiver(Event.TestRunThread.class).textBackgroundThread("background");
+                Router.getInstance().getReceiver(Event.TestRunThread.class).textAsyncThread("async");
 
             }
         }).start();
@@ -138,6 +137,6 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void testMutiReceivers() {
-        mEventCenter.getReceiver(Event.TestMultiReceivers.class).testMulti("TestMultiReceiver");
+        Router.getInstance().getReceiver(Event.TestMultiReceivers.class).testMulti("TestMultiReceiver");
     }
 }
