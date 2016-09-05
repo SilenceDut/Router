@@ -10,7 +10,6 @@ import com.silencedut.router.Annotation.Subscribe;
 public interface Event {
     interface TestRunThread {
 
-        @Subscribe(runThread = RunThread.POSTING)
         void textPostThread(String posting) ;
 
         void textMainThread(String main);

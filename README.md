@@ -68,7 +68,7 @@ now a publish/subscribe is completed,simple as EventBus.
 Use Annotation invoke method in different threads
 
 ```java
- @Subscribe(runThread = RunThread.Main) 
+ @Subscribe(runThread = RunThread.MAIN)
  @Subscribe(runThread = RunThread.POSTING)
  @Subscribe(runThread = RunThread.ASYNC)
  @Subscribe(runThread = RunThread.BACKGROUND)
@@ -78,7 +78,7 @@ Just like EventBus's way to reduce learning cost.
 if not add Annotation, will use @Subscribe(runThread = RunThread.Main)  as default.
 
 #### Annotation Mode
-mode 1 :add Annotation on implemented method, it as default
+#####mode 1 :add Annotation on implemented method, it as default
 ```java
 @Subscribe(runThread = RunThread.BACKGROUND)
 public void anyMethod(String msg) {
@@ -86,7 +86,9 @@ public void anyMethod(String msg) {
 }
 ```
 
-mode 2 :add Annotation on interface's method
+anyMethod will invoked on RunThread.BACKGROUND thread
+
+#####mode 2 :add Annotation on interface's method
 ```java
 Router.getInstance().setAnnotateMethodOnInterface(true);
 
@@ -95,7 +97,7 @@ interface TestRunThread {
      void anyMethod(String posting) ;
 }
 ```
-all class which implement the method will be invoked on the RunThread.POSTING Thread.
+on this mode, all class which implement the method will be invoked on the RunThread.POSTING thread.
 
 more use details , see the simple.
 
