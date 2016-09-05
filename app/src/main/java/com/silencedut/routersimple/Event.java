@@ -1,5 +1,8 @@
 package com.silencedut.routersimple;
 
+import com.silencedut.router.Annotation.RunThread;
+import com.silencedut.router.Annotation.Subscribe;
+
 /**
  * Created by SilenceDut on 16/9/1.
  */
@@ -7,6 +10,7 @@ package com.silencedut.routersimple;
 public interface Event {
     interface TestRunThread {
 
+        @Subscribe(runThread = RunThread.POSTING)
         void textPostThread(String posting) ;
 
         void textMainThread(String main);
