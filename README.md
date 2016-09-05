@@ -46,7 +46,7 @@ Step2. register to Router where you need implement the interface
 class AnyClass implement AnyInterface {
 
     //register on a appropriate lifecycle or constructor
-    Router.getInstance()register(this); 
+    Router.getInstance().register(this); 
     
     //it will be invoked on UI Thread
     void anyMethod(AnyType object)  {
@@ -59,6 +59,11 @@ Step3. invoke the method you defined before
 
 ```java
 Router.getInstance().getReceiver(AnyInterface.class).anyMethod(AnyType object);
+```
+
+Step4. unregister when not use anymore or a appropriate lifecycle
+```java
+Router.getInstance().unregister(this);
 ```
 
 now a publish/subscribe is completed,simple as EventBus.
