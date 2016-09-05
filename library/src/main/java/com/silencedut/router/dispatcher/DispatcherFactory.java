@@ -24,15 +24,13 @@ public class DispatcherFactory {
 
         switch (runThread) {
             case MAIN:
-                if (Thread.currentThread() == Looper.getMainLooper().getThread()) {
-                    return POSTING_THREAD_DISPATCHER;
-                }
-                return MAIN_THREAD_DISPATCHER;
+                return isMainThread()?POSTING_THREAD_DISPATCHER:MAIN_THREAD_DISPATCHER;
+
             case POSTING:
                 return POSTING_THREAD_DISPATCHER;
 
             case BACKGROUND:
-                return BACKGROUND_THREAD_DISPATCHER;
+                return !isMainThread()?POSTING_THREAD_DISPATCHER:BACKGROUND_THREAD_DISPATCHER;
 
             case ASYNC:
                 //lazy init , create Thread Pool only needed.
@@ -48,6 +46,9 @@ public class DispatcherFactory {
         return MAIN_THREAD_DISPATCHER;
     }
 
+    private static boolean isMainThread() {
+        return Thread.currentThread() == Looper.getMainLooper().getThread();
+    }
 
 
 }

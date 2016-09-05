@@ -43,7 +43,7 @@ class Reception {
                 try {
                     mInvokedMethod.invoke(mReceiver,mArgs);
                 } catch (Exception e) {
-                    throw new EventCenterException("UnHandler Exception when method invoke",e);
+                    throw new RouterException("UnHandler Exception when method invoke",e);
                 }
             }
         };

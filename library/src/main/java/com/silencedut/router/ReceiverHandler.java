@@ -34,7 +34,7 @@ class ReceiverHandler implements InvocationHandler {
                     try {
                         method = receiver.getClass().getMethod(method.getName(), method.getParameterTypes());
                     } catch (NoSuchMethodException e) {
-                        throw new EventCenterException(String.format("%s no method %s",receiver.getClass().getName(),method.getName()) ,e);
+                        throw new RouterException(String.format("%s no method %s",receiver.getClass().getName(),method.getName()) ,e);
                     }
                 }
                 Reception reception = new Reception(receiver,method,args);

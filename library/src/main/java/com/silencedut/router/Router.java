@@ -36,6 +36,11 @@ public class Router {
     public <T> T getReceiver(Class<T> receiverType) {
         ReceiverHandler receiverHandler = mReceiverHandlerByType.get(receiverType);
 
+        if(!receiverType.isInterface()) {
+            throw new RouterException(String.format("receiverType must be a interface , " +
+                    "%s is not a interface",receiverType.getName()));
+        }
+
         if(receiverHandler==null) {
             receiverHandler = new ReceiverHandler(this,receiverType,mAllReceivers);
             mReceiverHandlerByType.put(receiverType,receiverHandler);
