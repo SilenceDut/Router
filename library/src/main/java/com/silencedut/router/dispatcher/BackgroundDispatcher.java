@@ -4,7 +4,7 @@ import android.os.Handler;
 import android.os.HandlerThread;
 
 /**
- * Created by SilenceDut on 16/9/1.
+ * Created by SilenceDut on 16/8/2.
  */
 
 class BackgroundDispatcher implements Dispatcher {

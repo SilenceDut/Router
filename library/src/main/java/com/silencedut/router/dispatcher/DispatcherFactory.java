@@ -8,7 +8,7 @@ import static com.silencedut.router.Annotation.RunThread.MAIN;
 import static com.silencedut.router.Annotation.RunThread.POSTING;
 
 /**
- * Created by SilenceDut on 16/9/1.
+ * Created by SilenceDut on 16/8/2.
  */
 
 public class DispatcherFactory {

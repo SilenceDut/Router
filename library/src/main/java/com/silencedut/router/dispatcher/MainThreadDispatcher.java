@@ -5,7 +5,7 @@ import android.os.Looper;
 
 
 /**
- * Created by SilenceDut on 16/8/31.
+ * Created by SilenceDut on 16/8/1.
  */
 
 class MainThreadDispatcher implements Dispatcher {

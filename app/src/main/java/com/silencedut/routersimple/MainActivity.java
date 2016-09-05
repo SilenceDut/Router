@@ -124,7 +124,7 @@ public class MainActivity extends AppCompatActivity
         new Thread(new Runnable() {
             @Override
             public void run() {
-                mEventCenter.getReceiver(MainActivity.class).textMainThread("main");
+                mEventCenter.getReceiver(Event.TestRunThread.class).textMainThread("main");
                 mEventCenter.getReceiver(Event.TestRunThread.class).textPostThread("post");
                 mEventCenter.getReceiver(Event.TestRunThread.class).textBackgroundThread("background");
                 mEventCenter.getReceiver(Event.TestRunThread.class).textAsyncThread("async");
