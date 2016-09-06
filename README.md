@@ -11,7 +11,7 @@ English | [中文文档](http://silencedut.com/2016/09/04/Router—一个高效�
 ## Background
 EventBus is good ,but there are some problems when use.
 
-- **too much reflection use when register,and need manage mach cache such as ,especially there are many methods 
+- **too much reflection use when register,and need manage mach cache,especially there are many methods 
 in registered class, which adds to the memory requirements as well as initialization time.**
 
 - **[EventBus](https://github.com/greenrobot/EventBus) is not friendly to IDE such as AS.so on registered method ,control+click(or other shortcut key) can't take 
