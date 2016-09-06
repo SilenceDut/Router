@@ -110,13 +110,13 @@ more use details , see the simple.
 ## Add to project
 **gradle**
 
-    compile 'com.silencedut:router:0.8.0'
+    compile 'com.silencedut:router:0.8.3'
 **maven**
 
     <dependency>
       <groupId>com.silencedut</groupId>
       <artifactId>router</artifactId>
-      <version>0.8.0</version>
+      <version>0.8.3</version>
       <type>pom</type>
     </dependency>
     
