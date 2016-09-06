@@ -1,6 +1,6 @@
 ##What's Router
 
-English | [中文文档](http://silencedut.com/2016/09/04/Router—一个高效，使用方便的Android事件总线库)
+English | [中文文档](http://silencedut.com/2016/09/04/Router—一个高效，使用方便，基于动态代理实现的Android事件总线库)
 
 **Router -- A substitute good of EventBus similar implemented by dynamic proxy** 
 
