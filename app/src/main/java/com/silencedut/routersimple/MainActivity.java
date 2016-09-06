@@ -11,7 +11,7 @@ import com.silencedut.router.Router;
 
 
 public class MainActivity extends AppCompatActivity
-        implements Event.TestRunThread
+        implements Event.MainView
         ,Event.TestMultiReceivers
         ,View.OnClickListener{
 
@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity
     private TextView mAsyncTv;
     private TextView mTopFragmentTv;
     private TextView mBottomFragmentTv;
+    private MainPresenter mMainPresenter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +37,8 @@ public class MainActivity extends AppCompatActivity
         mBottomFragmentTv = (TextView)findViewById(R.id.bottom_tv);
 
         Router.getInstance().register(this);
+
+        mMainPresenter = new MainPresenter();
 
         findViewById(R.id.left_bt).setOnClickListener(this);
         findViewById(R.id.right_bt).setOnClickListener(this);
@@ -104,10 +107,10 @@ public class MainActivity extends AppCompatActivity
         clear();
         switch (v.getId()) {
             case R.id.left_bt:
-                testRunThread();
+                mMainPresenter.testRunThread();
                 break;
             case R.id.right_bt:
-                testMutiReceivers();
+                mMainPresenter.testMutiReceivers();
                 break;
         }
     }
@@ -119,26 +122,5 @@ public class MainActivity extends AppCompatActivity
         mAsyncTv.setText("");
         mTopFragmentTv.setText("");
         mBottomFragmentTv.setText("");
-    }
-
-    private void testRunThread() {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                Router.getInstance().getReceiver(Event.TestRunThread.class).textMainThread("main");
-                Router.getInstance().getReceiver(Event.TestRunThread.class).textPostThread("post");
-                Router.getInstance().getReceiver(Event.TestRunThread.class).textBackgroundThread("background");
-                Router.getInstance().getReceiver(Event.TestRunThread.class).textAsyncThread("async");
-
-            }
-        }).start();
-//        Router.getInstance().getReceiver(Event.TestRunThread.class).textMainThread("main");
-//        Router.getInstance().getReceiver(Event.TestRunThread.class).textPostThread("post");
-//        Router.getInstance().getReceiver(Event.TestRunThread.class).textBackgroundThread("background");
-//        Router.getInstance().getReceiver(Event.TestRunThread.class).textAsyncThread("async");
-    }
-
-    private void testMutiReceivers() {
-        Router.getInstance().getReceiver(Event.TestMultiReceivers.class).testMulti("TestMultiReceiver");
     }
 }

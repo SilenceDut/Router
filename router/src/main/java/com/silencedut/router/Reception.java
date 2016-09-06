@@ -6,9 +6,6 @@ import com.silencedut.router.dispatcher.Dispatcher;
 import com.silencedut.router.dispatcher.DispatcherFactory;
 
 import java.lang.reflect.Method;
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.FutureTask;
 
 /**
  * Created by SilenceDut on 16/8/1.
@@ -19,8 +16,8 @@ class Reception {
     private Object mReceiver;
     private Method mInvokedMethod;
     private Object[] mArgs;
-    private Runnable event;
-    Dispatcher dispatcher;
+    private Runnable mRunnuble;
+    Dispatcher mDispatcher;
 
     Reception(Object receiver,Method invokedMethod,Object[] args) {
         this.mReceiver = receiver;
@@ -31,17 +28,17 @@ class Reception {
 
     private void initReception() {
         mInvokedMethod.setAccessible(true);
-        event =produceEvent();
+        mRunnuble =produceEvent();
         RunThread runThread = RunThread.MAIN;
         Subscribe subscribeAnnotation = mInvokedMethod.getAnnotation(Subscribe.class);
         if(subscribeAnnotation!=null) {
             runThread = subscribeAnnotation.runThread();
         }
-        dispatcher = DispatcherFactory.getEventDispatch(runThread);
+        mDispatcher = DispatcherFactory.getEventDispatch(runThread);
     }
 
     void dispatchEvent() {
-        dispatcher.dispatch(event);
+        mDispatcher.dispatch(mRunnuble);
     }
     private Runnable produceEvent() {
         return new Runnable() {

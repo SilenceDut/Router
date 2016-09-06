@@ -8,7 +8,8 @@ import com.silencedut.router.Annotation.Subscribe;
  */
 
 public interface Event {
-    interface TestRunThread {
+
+    interface MainView {
 
         void textPostThread(String posting) ;
 

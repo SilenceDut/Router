@@ -1,7 +1,6 @@
 package com.silencedut.router;
 
 import com.silencedut.router.dispatcher.Dispatcher;
-import com.silencedut.router.dispatcher.DispatcherFactory;
 
 import java.util.Iterator;
 import java.util.Map;
@@ -21,7 +20,7 @@ public class Router {
 
     private Set<Dispatcher> mDispatchers = new CopyOnWriteArraySet<>();
 
-    boolean annotateMethodOnInterface;
+    boolean mAnnotateMethodOnInterface;
 
     private Router() {}
 
@@ -46,11 +45,11 @@ public class Router {
             mReceiverHandlerByType.put(receiverType,receiverHandler);
         }
 
-        return (T)receiverHandler.receiverProxy;
+        return (T)receiverHandler.mReceiverProxy;
     }
 
-    public void setAnnotateMethodOnInterface(boolean annotateMethodOnInterface) {
-        this.annotateMethodOnInterface = annotateMethodOnInterface;
+    public void setmAnnotateMethodOnInterface(boolean mAnnotateMethodOnInterface) {
+        this.mAnnotateMethodOnInterface = mAnnotateMethodOnInterface;
     }
 
     void addDispatch(Dispatcher dispatcher) {
