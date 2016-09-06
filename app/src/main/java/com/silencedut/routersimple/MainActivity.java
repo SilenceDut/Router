@@ -49,8 +49,10 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void textMainThread(String msg) {
+    public void textMainThread(String msg)  {
+
         mMainTv.setText(msg+",currentThread : "+Thread.currentThread().getName());
+
     }
 
 
@@ -130,10 +132,10 @@ public class MainActivity extends AppCompatActivity
 
             }
         }).start();
-//        mEventCenter.getReceiver(Event.TestRunThread.class).textMainThread("main");
-//        mEventCenter.getReceiver(Event.TestRunThread.class).textPostThread("post");
-//        mEventCenter.getReceiver(Event.TestRunThread.class).textBackgroundThread("background");
-//        mEventCenter.getReceiver(Event.TestRunThread.class).textAsyncThread("async");
+//        Router.getInstance().getReceiver(Event.TestRunThread.class).textMainThread("main");
+//        Router.getInstance().getReceiver(Event.TestRunThread.class).textPostThread("post");
+//        Router.getInstance().getReceiver(Event.TestRunThread.class).textBackgroundThread("background");
+//        Router.getInstance().getReceiver(Event.TestRunThread.class).textAsyncThread("async");
     }
 
     private void testMutiReceivers() {

@@ -53,9 +53,7 @@ public class Router {
         this.annotateMethodOnInterface = annotateMethodOnInterface;
     }
 
-    void dispatchEvent(Reception reception) {
-        Dispatcher dispatcher = DispatcherFactory.getEventDispatch(reception.runThread);
-        dispatcher.dispatch(reception.event);
+    void addDispatch(Dispatcher dispatcher) {
         mDispatchers.add(dispatcher);
     }
 

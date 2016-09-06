@@ -17,7 +17,6 @@ public interface Event {
         void textBackgroundThread(String background) ;
 
         void textAsyncThread(String async) ;
-
     }
 
     interface TestMultiReceivers {

@@ -29,7 +29,6 @@ class ReceiverHandler implements InvocationHandler {
     public Object invoke(Object proxy, Method method, Object[] args) {
         for(Object receiver : mReceivers) {
             if(mReceiverType.isInstance(receiver)) {
-
                 if(!mRouter.annotateMethodOnInterface) {
                     try {
                         method = receiver.getClass().getMethod(method.getName(), method.getParameterTypes());
@@ -38,7 +37,8 @@ class ReceiverHandler implements InvocationHandler {
                     }
                 }
                 Reception reception = new Reception(receiver,method,args);
-                mRouter.dispatchEvent(reception);
+                reception.dispatchEvent();
+                mRouter.addDispatch(reception.dispatcher);
             }
         }
         return null;
