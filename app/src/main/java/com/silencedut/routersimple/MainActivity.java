@@ -53,9 +53,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void textMainThread(String msg)  {
-
         mMainTv.setText(msg+",currentThread : "+Thread.currentThread().getName());
-
     }
 
 

@@ -27,7 +27,8 @@ above all , when project gets larger or multiple developers work on project,whic
 - take even no time and memory when register , only add a object reference to a map.
 - friendly to IDE, you can easily find the action from where it was called. and when you try to send a event there while be a prompt by ide.
 - defined method to match event instead of many methods.
-- proven in practice by mature apps
+- both Router and MVP design model using implement interface as a way of communication ,so it fit perfectly in MVP .
+- proven in practice by mature apps.
 
 ## Use
 Router is easily use especially when you had used EventBus before.
