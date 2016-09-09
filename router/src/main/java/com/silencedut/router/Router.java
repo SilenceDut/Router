@@ -2,6 +2,7 @@ package com.silencedut.router;
 
 import com.silencedut.router.dispatcher.Dispatcher;
 
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
@@ -18,7 +19,7 @@ public class Router {
 
     private Set<Object> mAllReceivers = new CopyOnWriteArraySet<>();
 
-    private Set<Dispatcher> mDispatchers = new CopyOnWriteArraySet<>();
+    private Set<Dispatcher> mDispatchers = new HashSet<>();
 
     boolean mAnnotateMethodOnInterface;
 
