@@ -16,7 +16,7 @@ class Reception {
     private Object mReceiver;
     private Method mInvokedMethod;
     private Object[] mArgs;
-    private Runnable mRunnuble;
+    private Runnable mRunnable;
     Dispatcher mDispatcher;
 
     Reception(Object receiver,Method invokedMethod,Object[] args) {
@@ -28,7 +28,7 @@ class Reception {
 
     private void initReception() {
         mInvokedMethod.setAccessible(true);
-        mRunnuble =produceEvent();
+        mRunnable =produceEvent();
         RunThread runThread = RunThread.MAIN;
         Subscribe subscribeAnnotation = mInvokedMethod.getAnnotation(Subscribe.class);
         if(subscribeAnnotation!=null) {
@@ -38,7 +38,7 @@ class Reception {
     }
 
     void dispatchEvent() {
-        mDispatcher.dispatch(mRunnuble);
+        mDispatcher.dispatch(mRunnable);
     }
     private Runnable produceEvent() {
         return new Runnable() {
