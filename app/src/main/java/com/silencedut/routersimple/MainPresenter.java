@@ -19,10 +19,6 @@ class MainPresenter {
 
             }
         }).start();
-//        Router.getInstance().getReceiver(Event.MainView.class).textMainThread("main");
-//        Router.getInstance().getReceiver(Event.MainView.class).textPostThread("post");
-//        Router.getInstance().getReceiver(Event.MainView.class).textBackgroundThread("background");
-//        Router.getInstance().getReceiver(Event.MainView.class).textAsyncThread("async");
     }
 
     void testMutiReceivers() {
