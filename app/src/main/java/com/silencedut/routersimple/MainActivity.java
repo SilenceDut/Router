@@ -48,7 +48,9 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Router.getInstance().unregister(this);
+
+        //test for memory leak
+        //Router.getInstance().unregister(this);
     }
 
     @Override
@@ -105,6 +107,7 @@ public class MainActivity extends AppCompatActivity
         clear();
         switch (v.getId()) {
             case R.id.left_bt:
+
                 mMainPresenter.testRunThread();
                 break;
             case R.id.right_bt:

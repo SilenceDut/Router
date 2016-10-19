@@ -3,7 +3,7 @@ package com.silencedut.router;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
-import java.util.Set;
+import java.util.WeakHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -14,20 +14,20 @@ class ReceiverHandler implements InvocationHandler {
 
     private Router mRouter;
     private Class mReceiverType;
-    private Set<Object> mReceivers;
+    private WeakHashMap<Class<?>,Object> mReceiversByType;
     private AtomicInteger sameTypeReceivesCount = new AtomicInteger(0);
     Object mReceiverProxy;
 
-    ReceiverHandler(Router router, Class receiverType, Set<Object> receivers) {
+    ReceiverHandler(Router router, Class receiverType,WeakHashMap<Class<?>,Object> mReceiversByType) {
         this.mRouter = router;
         this.mReceiverType = receiverType;
-        this.mReceivers = receivers;
+        this.mReceiversByType = mReceiversByType;
         this.mReceiverProxy = Proxy.newProxyInstance(mReceiverType.getClassLoader(), new Class[] {mReceiverType}, this);
     }
 
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) {
-        for(Object receiver : mReceivers) {
+        for(Object receiver: mReceiversByType.values()) {
             if(mReceiverType.isInstance(receiver)) {
                 if(!mRouter.mAnnotateMethodOnInterface) {
                     try {
@@ -47,7 +47,7 @@ class ReceiverHandler implements InvocationHandler {
     int getSameTypeReceivesCount() {
 
         sameTypeReceivesCount.set(0);
-        for(Object receiver : mReceivers) {
+        for(Object receiver : mReceiversByType.values()) {
             if(mReceiverType.isInstance(receiver)) {
                 sameTypeReceivesCount.incrementAndGet();
             }
