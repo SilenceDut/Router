@@ -8,7 +8,6 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.CopyOnWriteArraySet;
 
 /**
  * Created by SilenceDut on 16/8/1.
@@ -18,7 +17,7 @@ public class Router {
 
     private Map<Class<?>,ReceiverHandler> mReceiverHandlerByInterface = new ConcurrentHashMap<>();
 
-    private Set<WeakReference<Object>> mReceivers= new CopyOnWriteArraySet<>();
+    private Set<WeakReference<Object>> mReceivers= new HashSet<>();
 
     private Set<Dispatcher> mDispatchers = new HashSet<>();
 
@@ -58,18 +57,26 @@ public class Router {
         mDispatchers.add(dispatcher);
     }
 
-    public  void register(Object receiver) {
+    public synchronized void register(Object receiver) {
         if(receiver==null) {
             return;
         }
         mReceivers.add(new WeakReference<>(receiver));
     }
 
-    public void unregister(Object receiver) {
+    public synchronized void unregister(Object receiver) {
 
-        for(WeakReference weakReference:mReceivers) {
-            if(weakReference.get().equals(receiver)) {
-                mReceivers.remove(weakReference);
+        if(receiver==null) {
+            return;
+        }
+
+        Iterator receiverIterator = mReceivers.iterator();
+        while (receiverIterator.hasNext()) {
+            WeakReference weakReference = (WeakReference) receiverIterator.next();
+            Object o = weakReference.get();
+
+            if(receiver.equals(o)||o==null) {
+                receiverIterator.remove();
             }
         }
 
@@ -81,6 +88,7 @@ public class Router {
                 iterator.remove();
             }
         }
+
         if(mReceivers.size()==0) {
             stopRouter();
         }
