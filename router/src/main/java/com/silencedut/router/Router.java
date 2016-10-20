@@ -2,12 +2,13 @@ package com.silencedut.router;
 
 import com.silencedut.router.dispatcher.Dispatcher;
 
+import java.lang.ref.WeakReference;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
-import java.util.WeakHashMap;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArraySet;
 
 /**
  * Created by SilenceDut on 16/8/1.
@@ -17,9 +18,7 @@ public class Router {
 
     private Map<Class<?>,ReceiverHandler> mReceiverHandlerByInterface = new ConcurrentHashMap<>();
 
-    //private Set<Object> mAllReceivers = new CopyOnWriteArraySet<>();
-
-    private WeakHashMap<Class<?>,Object> mReceiversByType = new WeakHashMap<>();
+    private Set<WeakReference<Object>> mReceivers= new CopyOnWriteArraySet<>();
 
     private Set<Dispatcher> mDispatchers = new HashSet<>();
 
@@ -44,7 +43,7 @@ public class Router {
         }
 
         if(receiverHandler==null) {
-            receiverHandler = new ReceiverHandler(this,interfaceType,mReceiversByType);
+            receiverHandler = new ReceiverHandler(this,interfaceType,mReceivers);
             mReceiverHandlerByInterface.put(interfaceType,receiverHandler);
         }
 
@@ -59,18 +58,20 @@ public class Router {
         mDispatchers.add(dispatcher);
     }
 
-
-
     public  void register(Object receiver) {
         if(receiver==null) {
             return;
         }
-       mReceiversByType.put(receiver.getClass(),receiver);
+        mReceivers.add(new WeakReference<>(receiver));
     }
 
     public void unregister(Object receiver) {
 
-        mReceiversByType.remove(receiver.getClass());
+        for(WeakReference weakReference:mReceivers) {
+            if(weakReference.get().equals(receiver)) {
+                mReceivers.remove(weakReference);
+            }
+        }
 
         Iterator iterator = mReceiverHandlerByInterface.keySet().iterator();
         while (iterator.hasNext()) {
@@ -80,7 +81,7 @@ public class Router {
                 iterator.remove();
             }
         }
-        if(mReceiversByType.size()==0) {
+        if(mReceivers.size()==0) {
             stopRouter();
         }
     }

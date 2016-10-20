@@ -1,9 +1,11 @@
 package com.silencedut.router;
 
+import java.lang.ref.WeakReference;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
-import java.util.WeakHashMap;
+import java.util.Set;
+import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -14,20 +16,21 @@ class ReceiverHandler implements InvocationHandler {
 
     private Router mRouter;
     private Class mReceiverType;
-    private WeakHashMap<Class<?>,Object> mReceiversByType;
+    private Set<WeakReference<Object>> mReceivers= new CopyOnWriteArraySet<>();
     private AtomicInteger sameTypeReceivesCount = new AtomicInteger(0);
     Object mReceiverProxy;
 
-    ReceiverHandler(Router router, Class receiverType,WeakHashMap<Class<?>,Object> mReceiversByType) {
+    ReceiverHandler(Router router, Class receiverType,Set<WeakReference<Object>> mReceivers) {
         this.mRouter = router;
         this.mReceiverType = receiverType;
-        this.mReceiversByType = mReceiversByType;
+        this.mReceivers = mReceivers;
         this.mReceiverProxy = Proxy.newProxyInstance(mReceiverType.getClassLoader(), new Class[] {mReceiverType}, this);
     }
 
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) {
-        for(Object receiver: mReceiversByType.values()) {
+        for(WeakReference weakReference: mReceivers) {
+            Object receiver = weakReference.get();
             if(mReceiverType.isInstance(receiver)) {
                 if(!mRouter.mAnnotateMethodOnInterface) {
                     try {
@@ -47,7 +50,9 @@ class ReceiverHandler implements InvocationHandler {
     int getSameTypeReceivesCount() {
 
         sameTypeReceivesCount.set(0);
-        for(Object receiver : mReceiversByType.values()) {
+
+        for(WeakReference weakReference : mReceivers) {
+            Object receiver = weakReference.get();
             if(mReceiverType.isInstance(receiver)) {
                 sameTypeReceivesCount.incrementAndGet();
             }
