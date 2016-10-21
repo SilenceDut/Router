@@ -70,15 +70,24 @@ public class Router {
         if(receiver==null) {
             return;
         }
+        //to avoid java.lang.UnsupportedOperationException
+        //at java.util.concurrent.CopyOnWriteArrayList$CowIterator.remove(CopyOnWriteArrayList.java:744)
+        Set<WeakReference<Object>> tempNeedToBeRemovedReceivers =null;
 
-        Iterator receiverIterator = mReceivers.iterator();
-        while (receiverIterator.hasNext()) {
-            WeakReference weakReference = (WeakReference) receiverIterator.next();
+        for (Object mReceiver : mReceivers) {
+            WeakReference weakReference = (WeakReference) mReceiver;
             Object o = weakReference.get();
-
             if (receiver.equals(o) || o == null) {
-                receiverIterator.remove();
+                if (tempNeedToBeRemovedReceivers == null) {
+                    tempNeedToBeRemovedReceivers = new HashSet<>(mReceivers.size());
+                }
+                tempNeedToBeRemovedReceivers.add(weakReference);
             }
+
+        }
+
+        if(tempNeedToBeRemovedReceivers!=null) {
+            mReceivers.removeAll(tempNeedToBeRemovedReceivers);
         }
 
 
