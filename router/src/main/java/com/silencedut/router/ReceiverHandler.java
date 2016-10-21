@@ -5,7 +5,6 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.util.Set;
-import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -16,7 +15,7 @@ class ReceiverHandler implements InvocationHandler {
 
     private Router mRouter;
     private Class mReceiverType;
-    private Set<WeakReference<Object>> mReceivers= new CopyOnWriteArraySet<>();
+    private Set<WeakReference<Object>> mReceivers;
     private AtomicInteger sameTypeReceivesCount = new AtomicInteger(0);
     Object mReceiverProxy;
 

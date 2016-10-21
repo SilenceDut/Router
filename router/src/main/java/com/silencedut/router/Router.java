@@ -8,6 +8,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArraySet;
 
 /**
  * Created by SilenceDut on 16/8/1.
@@ -17,7 +18,7 @@ public class Router {
 
     private Map<Class<?>,ReceiverHandler> mReceiverHandlerByInterface = new ConcurrentHashMap<>();
 
-    private Set<WeakReference<Object>> mReceivers= new HashSet<>();
+    private Set<WeakReference<Object>> mReceivers= new CopyOnWriteArraySet<>();
 
     private Set<Dispatcher> mDispatchers = new HashSet<>();
 
@@ -57,14 +58,14 @@ public class Router {
         mDispatchers.add(dispatcher);
     }
 
-    public synchronized void register(Object receiver) {
+    public  void register(Object receiver) {
         if(receiver==null) {
             return;
         }
         mReceivers.add(new WeakReference<>(receiver));
     }
 
-    public synchronized void unregister(Object receiver) {
+    public  void unregister(Object receiver) {
 
         if(receiver==null) {
             return;
@@ -75,10 +76,11 @@ public class Router {
             WeakReference weakReference = (WeakReference) receiverIterator.next();
             Object o = weakReference.get();
 
-            if(receiver.equals(o)||o==null) {
+            if (receiver.equals(o) || o == null) {
                 receiverIterator.remove();
             }
         }
+
 
         Iterator iterator = mReceiverHandlerByInterface.keySet().iterator();
         while (iterator.hasNext()) {
