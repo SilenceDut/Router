@@ -1,18 +1,15 @@
 ##What's Router
 
-English | [中文文档](http://silencedut.com/2016/09/04/Router—一个高效，使用方便，基于动态代理实现的Android事件总线库)
+English | [中文文档](http:www.silencedut.com/2016/09/04/Router—一个高效，使用方便，基于动态代理实现的Android事件总线库)
 
 **Router -- A substitute good of EventBus similar implemented by dynamic proxy** 
 
 ![dynamic proxy](http://ww1.sinaimg.cn/large/801b780agw1f7hxd0b7oyj20fr08vwfc.jpg)
 
-> what's dynamic proxy and how to use , see my blog [代理模式的学习与应用](http://silencedut.com/2016/08/12/代理模式的学习与应用)
+> what's dynamic proxy and how to use , see my blog [代理模式的学习与应用](http://www.silencedut.com/2016/08/12/代理模式的学习与应用)
 
 ## Background
 EventBus is good ,but there are some problems when use.
-
-- **too much reflection use when register,and need manage mach cache,especially there are many methods 
-in registered class, which adds to the memory requirements as well as initialization time.**
 
 - **[EventBus](https://github.com/greenrobot/EventBus) is not friendly to IDE such as AS.so on registered method ,control+click(or other shortcut key) can't take 
 you to what's actually being called , and there no any prompt when you post a event even you get a mistake.** 
