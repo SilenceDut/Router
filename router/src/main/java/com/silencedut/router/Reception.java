@@ -45,7 +45,7 @@ class Reception {
             @Override
             public void run() {
                 try {
-                    if(mInvokedMethod!=null) {
+                    if(mInvokedMethod!=null&&mReceiver!=null) {
                         mInvokedMethod.invoke(mReceiver, mArgs);
                     }
                 } catch (Exception e) {
