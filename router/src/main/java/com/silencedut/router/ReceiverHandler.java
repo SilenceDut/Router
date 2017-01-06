@@ -19,26 +19,26 @@ class ReceiverHandler implements InvocationHandler {
     private AtomicInteger sameTypeReceivesCount = new AtomicInteger(0);
     Object mReceiverProxy;
 
-    ReceiverHandler(Router router, Class receiverType,Set<WeakReference<Object>> mReceivers) {
+    ReceiverHandler(Router router, Class receiverType, Set<WeakReference<Object>> mReceivers) {
         this.mRouter = router;
         this.mReceiverType = receiverType;
         this.mReceivers = mReceivers;
-        this.mReceiverProxy = Proxy.newProxyInstance(mReceiverType.getClassLoader(), new Class[] {mReceiverType}, this);
+        this.mReceiverProxy = Proxy.newProxyInstance(mReceiverType.getClassLoader(), new Class[]{mReceiverType}, this);
     }
 
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) {
-        for(WeakReference weakReference: mReceivers) {
+        for (WeakReference weakReference : mReceivers) {
             Object receiver = weakReference.get();
-            if(mReceiverType.isInstance(receiver)) {
-                if(!mRouter.mAnnotateMethodOnInterface) {
+            if (mReceiverType.isInstance(receiver)) {
+                if (!mRouter.mAnnotateMethodOnInterface) {
                     try {
                         method = receiver.getClass().getMethod(method.getName(), method.getParameterTypes());
                     } catch (NoSuchMethodException e) {
-                        throw new RouterException(String.format("%s no method %s",receiver.getClass().getName(),method.getName()) ,e);
+                        throw new RouterException(String.format("%s no method %s", receiver.getClass().getName(), method.getName()), e);
                     }
                 }
-                Reception reception = new Reception(receiver,method,args);
+                Reception reception = new Reception(receiver, method, args);
                 reception.dispatchEvent();
                 mRouter.addDispatch(reception.mDispatcher);
             }
@@ -50,9 +50,9 @@ class ReceiverHandler implements InvocationHandler {
 
         sameTypeReceivesCount.set(0);
 
-        for(WeakReference weakReference : mReceivers) {
+        for (WeakReference weakReference : mReceivers) {
             Object receiver = weakReference.get();
-            if(mReceiverType.isInstance(receiver)) {
+            if (mReceiverType.isInstance(receiver)) {
                 sameTypeReceivesCount.incrementAndGet();
             }
         }

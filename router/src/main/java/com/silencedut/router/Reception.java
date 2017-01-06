@@ -19,7 +19,7 @@ class Reception {
     private Runnable mRunnable;
     Dispatcher mDispatcher;
 
-    Reception(Object receiver,Method invokedMethod,Object[] args) {
+    Reception(Object receiver, Method invokedMethod, Object[] args) {
         this.mReceiver = receiver;
         this.mInvokedMethod = invokedMethod;
         this.mArgs = args;
@@ -28,10 +28,10 @@ class Reception {
 
     private void initReception() {
         mInvokedMethod.setAccessible(true);
-        mRunnable =produceEvent();
+        mRunnable = produceEvent();
         RunThread runThread = RunThread.MAIN;
         Subscribe subscribeAnnotation = mInvokedMethod.getAnnotation(Subscribe.class);
-        if(subscribeAnnotation!=null) {
+        if (subscribeAnnotation != null) {
             runThread = subscribeAnnotation.runThread();
         }
         mDispatcher = DispatcherFactory.getEventDispatch(runThread);
@@ -40,16 +40,17 @@ class Reception {
     void dispatchEvent() {
         mDispatcher.dispatch(mRunnable);
     }
+
     private Runnable produceEvent() {
         return new Runnable() {
             @Override
             public void run() {
                 try {
-                    if(mInvokedMethod!=null&&mReceiver!=null) {
+                    if (mInvokedMethod != null && mReceiver != null) {
                         mInvokedMethod.invoke(mReceiver, mArgs);
                     }
                 } catch (Exception e) {
-                    throw new RouterException("UnHandler Exception when method invoke ,"+ e.getCause()  );
+                    throw new RouterException("UnHandler Exception when method invoke ," + e.getCause());
                 }
             }
         };

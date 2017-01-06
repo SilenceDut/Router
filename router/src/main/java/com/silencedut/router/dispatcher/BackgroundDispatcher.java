@@ -10,7 +10,7 @@ import android.os.HandlerThread;
 class BackgroundDispatcher implements Dispatcher {
 
     private HandlerThread mBackgroundThread = new HandlerThread("Background");
-    private Handler mBackgroundHandler ;
+    private Handler mBackgroundHandler;
 
     BackgroundDispatcher() {
         mBackgroundThread.start();
@@ -19,7 +19,7 @@ class BackgroundDispatcher implements Dispatcher {
 
     @Override
     public void dispatch(Runnable runnable) {
-        if(!mBackgroundThread.isAlive()) {
+        if (!mBackgroundThread.isAlive()) {
             return;
         }
         mBackgroundHandler.post(runnable);
@@ -27,7 +27,7 @@ class BackgroundDispatcher implements Dispatcher {
 
     @Override
     public boolean stop() {
-        if(!mBackgroundThread.isAlive()) {
+        if (!mBackgroundThread.isAlive()) {
             return true;
         }
         mBackgroundHandler.removeCallbacksAndMessages(null);

@@ -8,7 +8,7 @@ import java.util.concurrent.Executors;
  */
 
 class AsyncThreadDispatcher implements Dispatcher {
-    private ExecutorService mAsyncExecutor ;
+    private ExecutorService mAsyncExecutor;
 
     AsyncThreadDispatcher() {
         mAsyncExecutor = Executors.newCachedThreadPool();
@@ -16,7 +16,7 @@ class AsyncThreadDispatcher implements Dispatcher {
 
     @Override
     public void dispatch(Runnable runnable) {
-        if(mAsyncExecutor.isShutdown()) {
+        if (mAsyncExecutor.isShutdown()) {
             return;
         }
         mAsyncExecutor.execute(runnable);

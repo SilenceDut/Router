@@ -16,15 +16,16 @@ import java.util.concurrent.CopyOnWriteArraySet;
 
 public class Router {
 
-    private Map<Class<?>,ReceiverHandler> mReceiverHandlerByInterface = new ConcurrentHashMap<>();
+    private Map<Class<?>, ReceiverHandler> mReceiverHandlerByInterface = new ConcurrentHashMap<>();
 
-    private Set<WeakReference<Object>> mReceivers= new CopyOnWriteArraySet<>();
+    private Set<WeakReference<Object>> mReceivers = new CopyOnWriteArraySet<>();
 
     private Set<Dispatcher> mDispatchers = new HashSet<>();
 
     boolean mAnnotateMethodOnInterface;
 
-    private Router() {}
+    private Router() {
+    }
 
     private static class InstanceHolder {
         private static Router sInstance = new Router();
@@ -37,17 +38,16 @@ public class Router {
     public <T> T getReceiver(Class<T> interfaceType) {
         ReceiverHandler receiverHandler = mReceiverHandlerByInterface.get(interfaceType);
 
-        if(!interfaceType.isInterface()) {
-            throw new RouterException(String.format("receiverType must be a interface , " +
-                    "%s is not a interface",interfaceType.getName()));
+        if (!interfaceType.isInterface()) {
+            throw new RouterException(String.format("receiverType must be a interface , " + "%s is not a interface", interfaceType.getName()));
         }
 
-        if(receiverHandler==null) {
-            receiverHandler = new ReceiverHandler(this,interfaceType,mReceivers);
-            mReceiverHandlerByInterface.put(interfaceType,receiverHandler);
+        if (receiverHandler == null) {
+            receiverHandler = new ReceiverHandler(this, interfaceType, mReceivers);
+            mReceiverHandlerByInterface.put(interfaceType, receiverHandler);
         }
 
-        return (T)receiverHandler.mReceiverProxy;
+        return (T) receiverHandler.mReceiverProxy;
     }
 
     public void setmAnnotateMethodOnInterface(boolean mAnnotateMethodOnInterface) {
@@ -58,16 +58,16 @@ public class Router {
         mDispatchers.add(dispatcher);
     }
 
-    public  void register(Object receiver) {
-        if(receiver==null) {
+    public void register(Object receiver) {
+        if (receiver == null) {
             return;
         }
         mReceivers.add(new WeakReference<>(receiver));
     }
 
-    public  void unregister(Object receiver) {
+    public void unregister(Object receiver) {
 
-        if(receiver==null) {
+        if (receiver == null) {
             return;
         }
 
@@ -83,19 +83,18 @@ public class Router {
         Iterator iterator = mReceiverHandlerByInterface.keySet().iterator();
         while (iterator.hasNext()) {
             Class type = (Class) iterator.next();
-            if(type.isInstance(receiver)&&
-                    mReceiverHandlerByInterface.get(type).getSameTypeReceivesCount()==0) {
+            if (type.isInstance(receiver) && mReceiverHandlerByInterface.get(type).getSameTypeReceivesCount() == 0) {
                 iterator.remove();
             }
         }
 
-        if(mReceivers.size()==0) {
+        if (mReceivers.size() == 0) {
             stopRouter();
         }
     }
 
     private void stopRouter() {
-        for(Dispatcher dispatcher : mDispatchers) {
+        for (Dispatcher dispatcher : mDispatchers) {
             dispatcher.stop();
         }
     }

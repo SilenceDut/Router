@@ -6,15 +6,15 @@ package com.silencedut.router;
 
 public class RouterException extends RuntimeException {
 
-    public RouterException(String detailMessage ) {
+    public RouterException(String detailMessage) {
         super(detailMessage);
     }
 
-    public RouterException(Throwable throwable ) {
+    public RouterException(Throwable throwable) {
         super(throwable);
     }
 
-    public RouterException(String detailMessage, Throwable throwable ) {
-        super(detailMessage,throwable);
+    public RouterException(String detailMessage, Throwable throwable) {
+        super(detailMessage, throwable);
     }
 }

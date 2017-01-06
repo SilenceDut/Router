@@ -6,5 +6,6 @@ package com.silencedut.router.dispatcher;
 
 public interface Dispatcher {
     void dispatch(Runnable runnable);
+
     boolean stop();
 }
