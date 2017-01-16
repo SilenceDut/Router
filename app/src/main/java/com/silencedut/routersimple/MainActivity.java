@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity
         mTopFragmentTv = (TextView)findViewById(R.id.top_tv);
         mBottomFragmentTv = (TextView)findViewById(R.id.bottom_tv);
 
-        Router.getInstance().register(this);
+        Router.instance().register(this);
 
         mMainPresenter = new MainPresenter();
 
@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity
         super.onDestroy();
 
         //test for memory leak
-        //Router.getInstance().unregister(this);
+        //Router.instance().unregister(this);
     }
 
     @Override

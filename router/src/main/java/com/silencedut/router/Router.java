@@ -31,7 +31,7 @@ public class Router {
         private static Router sInstance = new Router();
     }
 
-    public static Router getInstance() {
+    public static Router instance() {
         return InstanceHolder.sInstance;
     }
 

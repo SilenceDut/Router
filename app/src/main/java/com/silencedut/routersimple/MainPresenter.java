@@ -12,16 +12,16 @@ class MainPresenter {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                Router.getInstance().getReceiver(Event.MainView.class).textMainThread("main");
-                Router.getInstance().getReceiver(Event.MainView.class).textPostThread("post");
-                Router.getInstance().getReceiver(Event.MainView.class).textBackgroundThread("background");
-                Router.getInstance().getReceiver(Event.MainView.class).textAsyncThread("async");
+                Router.instance().getReceiver(Event.MainView.class).textMainThread("main");
+                Router.instance().getReceiver(Event.MainView.class).textPostThread("post");
+                Router.instance().getReceiver(Event.MainView.class).textBackgroundThread("background");
+                Router.instance().getReceiver(Event.MainView.class).textAsyncThread("async");
 
             }
         }).start();
     }
 
     void testMutiReceivers() {
-        Router.getInstance().getReceiver(Event.TestMultiReceivers.class).testMulti("TestMultiReceiver");
+        Router.instance().getReceiver(Event.TestMultiReceivers.class).testMulti("TestMultiReceiver");
     }
 }

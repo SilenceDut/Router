@@ -20,7 +20,7 @@ public class TopFragment extends Fragment implements Event.TestMultiReceivers{
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Router.getInstance().register(this);
+        Router.instance().register(this);
     }
 
     @Nullable
@@ -40,6 +40,6 @@ public class TopFragment extends Fragment implements Event.TestMultiReceivers{
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Router.getInstance().unregister(this);
+        Router.instance().unregister(this);
     }
 }
