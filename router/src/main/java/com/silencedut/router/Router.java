@@ -31,6 +31,15 @@ public class Router {
         private static Router sInstance = new Router();
     }
 
+    /**
+     * use  {@link #instance()} method
+     * @return
+     */
+    @Deprecated
+    public static Router getInstance() {
+        return InstanceHolder.sInstance;
+    }
+
     public static Router instance() {
         return InstanceHolder.sInstance;
     }
