@@ -86,6 +86,7 @@
             android:layout_weight="1"
             android:background="#FF5722"
             android:gravity="center"
+            android:textAllCaps="false"
             android:text= "testRunThread()"
             />
 
@@ -96,6 +97,7 @@
             android:layout_weight="1"
             android:background="#00BCD4"
             android:gravity="center"
+            android:textAllCaps="false"
             android:text= "testMultiReceivers()"
             />
     </LinearLayout>

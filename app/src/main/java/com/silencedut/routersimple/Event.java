@@ -1,7 +1,5 @@
 package com.silencedut.routersimple;
 
-import com.silencedut.router.Annotation.RunThread;
-import com.silencedut.router.Annotation.Subscribe;
 
 /**
  * Created by SilenceDut on 16/9/1.

@@ -1,7 +1,9 @@
 package com.silencedut.router;
 
-import com.silencedut.router.Annotation.RunThread;
-import com.silencedut.router.Annotation.Subscribe;
+import android.util.Log;
+
+import com.annotation.RunThread;
+import com.annotation.Subscribe;
 import com.silencedut.router.dispatcher.Dispatcher;
 import com.silencedut.router.dispatcher.DispatcherFactory;
 
@@ -30,10 +32,30 @@ class Reception {
         mInvokedMethod.setAccessible(true);
         mRunnable = produceEvent();
         RunThread runThread = RunThread.MAIN;
-        Subscribe subscribeAnnotation = mInvokedMethod.getAnnotation(Subscribe.class);
-        if (subscribeAnnotation != null) {
-            runThread = subscribeAnnotation.runThread();
+        ThreadFinder threadFinderFinder = null;
+        try {
+            Class<?> methodThreadCls = Class.forName("com.silencedut.router.MethodThreadFinder");
+            threadFinderFinder = (ThreadFinder) methodThreadCls.newInstance();
+            String fullMethodName = mReceiver.getClass().getName()+"."+mInvokedMethod.getName();
+            runThread = RunThread.valueOf(threadFinderFinder.getMethodThread(fullMethodName));
+            Log.d("Reception","Use Annotation ahead of runtime");
+        } catch (ClassNotFoundException e) {
+            e.getStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (NullPointerException e) {
+            e.getStackTrace();
         }
+        if(threadFinderFinder==null) {
+            Subscribe subscribeAnnotation = mInvokedMethod.getAnnotation(Subscribe.class);
+            if (subscribeAnnotation != null) {
+                runThread = subscribeAnnotation.runThread();
+            }
+            Log.d("Reception","Use Annotation Runtime");
+        }
+
         mDispatcher = DispatcherFactory.getEventDispatch(runThread);
     }
 

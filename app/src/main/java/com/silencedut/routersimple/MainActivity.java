@@ -5,9 +5,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 
-import com.silencedut.router.Annotation.RunThread;
-import com.silencedut.router.Annotation.Subscribe;
+import com.annotation.RunThread;
+import com.annotation.Subscribe;
 import com.silencedut.router.Router;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 
 public class MainActivity extends AppCompatActivity
@@ -16,17 +19,22 @@ public class MainActivity extends AppCompatActivity
         ,View.OnClickListener{
 
     private static final String TAG = MainActivity.class.getSimpleName();
-    private TextView mMainTv;
+
     private TextView mPostingTv;
     private TextView mBackgroundTv;
     private TextView mAsyncTv;
     private TextView mTopFragmentTv;
     private TextView mBottomFragmentTv;
     private MainPresenter mMainPresenter;
+
+    @BindView(R.id.main_text) TextView mMainTv;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        ButterKnife.bind(this);
 
         mMainTv = (TextView) findViewById(R.id.main_text);
         mPostingTv = (TextView) findViewById(R.id.posting_text);

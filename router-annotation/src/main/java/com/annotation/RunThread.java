@@ -1,4 +1,4 @@
-package com.silencedut.router.Annotation;
+package com.annotation;
 
 /**
  * Created by SilenceDut on 16/8/3.

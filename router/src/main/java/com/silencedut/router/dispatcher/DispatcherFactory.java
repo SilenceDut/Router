@@ -2,7 +2,8 @@ package com.silencedut.router.dispatcher;
 
 import android.os.Looper;
 
-import com.silencedut.router.Annotation.RunThread;
+import com.annotation.RunThread;
+
 
 /**
  * Created by SilenceDut on 16/8/2.
