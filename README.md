@@ -1,3 +1,6 @@
+##Latest version
+router 1.2.6 --  use apt to process subscribe annotation 
+
 ##What's Router
 
 English | [中文文档](http:www.silencedut.com/2016/09/04/Router—一个高效，使用方便，基于动态代理实现的Android事件总线库)
@@ -107,13 +110,13 @@ more use details , see the simple.
 ## Add to project
 **gradle**
 
-    compile 'com.silencedut:router:1.2.2'
+    compile 'com.silencedut:router:1.2.6'
 **maven**
 
     <dependency>
       <groupId>com.silencedut</groupId>
       <artifactId>router</artifactId>
-      <version>1.2.2</version>
+      <version>1.2.6</version>
       <type>pom</type>
     </dependency>
     
