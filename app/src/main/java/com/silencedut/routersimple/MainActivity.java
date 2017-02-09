@@ -9,8 +9,6 @@ import com.annotation.RunThread;
 import com.annotation.Subscribe;
 import com.silencedut.router.Router;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 
 public class MainActivity extends AppCompatActivity
@@ -26,15 +24,12 @@ public class MainActivity extends AppCompatActivity
     private TextView mTopFragmentTv;
     private TextView mBottomFragmentTv;
     private MainPresenter mMainPresenter;
-
-    @BindView(R.id.main_text) TextView mMainTv;
+    private TextView mMainTv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        ButterKnife.bind(this);
 
         mMainTv = (TextView) findViewById(R.id.main_text);
         mPostingTv = (TextView) findViewById(R.id.posting_text);
