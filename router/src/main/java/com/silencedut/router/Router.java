@@ -67,14 +67,14 @@ public class Router {
         mDispatchers.add(dispatcher);
     }
 
-    public void register(Object receiver) {
+    public synchronized void register(Object receiver) {
         if (receiver == null) {
             return;
         }
         mReceivers.add(new WeakReference<>(receiver));
     }
 
-    public void unregister(Object receiver) {
+    public synchronized void unregister(Object receiver) {
 
         if (receiver == null) {
             return;
@@ -86,7 +86,6 @@ public class Router {
             if (receiver.equals(o) || o == null) {
                 mReceivers.remove(mReceiver);
             }
-
         }
 
         Iterator iterator = mReceiverHandlerByInterface.keySet().iterator();
