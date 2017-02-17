@@ -44,7 +44,7 @@ public class Router {
         return InstanceHolder.sInstance;
     }
 
-    public <T> T getReceiver(Class<T> interfaceType) {
+    public  <T> T getReceiver(Class<T> interfaceType) {
         ReceiverHandler receiverHandler = mReceiverHandlerByInterface.get(interfaceType);
 
         if (!interfaceType.isInterface()) {
@@ -56,7 +56,7 @@ public class Router {
             mReceiverHandlerByInterface.put(interfaceType, receiverHandler);
         }
 
-        return (T) receiverHandler.mReceiverProxy;
+        return (T) mReceiverHandlerByInterface.get(interfaceType).mReceiverProxy;
     }
 
     public void setmAnnotateMethodOnInterface(boolean mAnnotateMethodOnInterface) {
