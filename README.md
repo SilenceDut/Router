@@ -1,6 +1,8 @@
 ##Latest version
 router 1.2.8 ——  modified code to avoid concurrent bugs
+
 router 1.2.6 --  use apt to process subscribe annotation 
+
 router 1.2.0 --  use WeakReference to avoid MemoryLeak cause by forgot unregister
 
 ##What's Router
