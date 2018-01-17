@@ -72,7 +72,8 @@ class Reception {
                         mInvokedMethod.invoke(mReceiver, mArgs);
                     }
                 } catch (Exception e) {
-                    throw new RouterException("UnHandler Exception when method invoke ," + e.getCause());
+                    Log.d("Reception","UnHandler Exception when method "
+                            +mInvokedMethod.getName()+" of "+mReceiver.getClass().getCanonicalName()+","+e);
                 }
             }
         };
