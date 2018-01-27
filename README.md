@@ -5,6 +5,10 @@ router 1.2.6 --  use apt to process subscribe annotation
 
 router 1.2.0 --  use WeakReference to avoid MemoryLeak cause by forgot unregister
 
+## Project
+
+It had been used in project [KnowWeather](https://github.com/SilenceDut/KnowWeather),you can learn more.
+
 ## What's Router
 
 English | [中文文档](http:www.silencedut.com/2016/09/04/Router—一个高效，使用方便，基于动态代理实现的Android事件总线库)
