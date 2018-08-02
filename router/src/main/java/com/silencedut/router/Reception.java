@@ -40,13 +40,13 @@ class Reception {
             runThread = RunThread.valueOf(threadFinderFinder.getMethodThread(fullMethodName));
             Log.d("Reception","Use Annotation ahead of runtime");
         } catch (ClassNotFoundException e) {
-            e.getStackTrace();
+            Log.e("Reception","Use Annotation ahead of runtime ClassNotFoundException",e);
         } catch (InstantiationException e) {
-            e.printStackTrace();
+            Log.e("Reception","Use Annotation ahead of runtime InstantiationException",e);
         } catch (IllegalAccessException e) {
-            e.printStackTrace();
+            Log.e("Reception","Use Annotation ahead of runtime IllegalAccessException",e);
         } catch (NullPointerException e) {
-            e.getStackTrace();
+            Log.e("Reception","Use Annotation ahead of runtime NullPointerException",e);
         }
         if(threadFinderFinder==null) {
             Subscribe subscribeAnnotation = mInvokedMethod.getAnnotation(Subscribe.class);
