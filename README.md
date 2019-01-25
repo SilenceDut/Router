@@ -7,7 +7,7 @@ router 1.2.0 --  use WeakReference to avoid MemoryLeak cause by forgot unregiste
 
 ## Project
 
-It had been used in project [KnowWeather](https://github.com/SilenceDut/KnowWeather),you can learn more.
+It had been used in project [KnowWeather](https://github.com/SilenceDut/KnowWeather) and [diffadapter demo](https://github.com/SilenceDut/diffadapter) ,you can learn more.
 
 ## What's Router
 
