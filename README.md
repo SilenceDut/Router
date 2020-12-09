@@ -17,7 +17,7 @@ English | [中文文档](https://silencedut.github.io/2016/09/04/Router%E2%80%94
 
 ![dynamic proxy](http://ww1.sinaimg.cn/large/801b780agw1f7hxd0b7oyj20fr08vwfc.jpg)
 
-> what's dynamic proxy and how to use , see my blog [代理模式的学习与应用](http://www.silencedut.com/2016/08/12/代理模式的学习与应用)
+> what's dynamic proxy and how to use , see my blog [代理模式的学习与应用](https://silencedut.github.io/2016/08/12/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F%E7%9A%84%E5%AD%A6%E4%B9%A0%E4%B8%8E%E5%BA%94%E7%94%A8/)
 
 ## Background
 EventBus is good ,but there are some problems when use.
